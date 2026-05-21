@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">DiaCur</string>
+    <string name="service_task_oil">Výmena oleja</string>
+    <string name="service_task_tyres">Prezutie pneumatík</string>
+    <string name="service_task_brake_service">Servis bŕzd</string>
+    <string name="service_task_timing_belts">Výmena rozvodov</string>
+    <string name="service_task_spark_plugs">Výmena sviečok</string>
+    <string name="service_task_bulbs">Výmena žiaroviek</string>
+    <string name="service_task_coolant">Výmena chladiacej kvapaliny</string>
+    <string name="service_task_wheel_alignment">Geometria kolies</string>
+    <string name="service_task_other">Iné</string>
+
+    <string name="vehicle_type_car">Auto</string>
+    <string name="vehicle_type_motorcycle">Motorka</string>
+    <string name="vehicle_type_van">Dodávka</string>
+    <string name="vehicle_type_other">Iné</string>
+
+    <string name="inspection_type_stk">STK</string>
+    <string name="inspection_type_ek">EK</string>
+</resources>
