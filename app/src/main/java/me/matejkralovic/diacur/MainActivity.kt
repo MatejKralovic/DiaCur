@@ -15,6 +15,8 @@ import me.matejkralovic.diacur.ui.theme.DiaCurTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val navController = rememberNavController()
+        DiaCurNavGraph(navController = navController)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
