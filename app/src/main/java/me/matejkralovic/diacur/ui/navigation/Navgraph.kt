@@ -1,14 +1,54 @@
 package me.matejkralovic.diacur.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import me.matejkralovic.diacur.DiaCurApp
+import me.matejkralovic.diacur.ui.navigation.Screen.FuelingDetail
+import me.matejkralovic.diacur.ui.navigation.Screen.FuelingList
+import me.matejkralovic.diacur.ui.navigation.Screen.InspectionDetail
+import me.matejkralovic.diacur.ui.navigation.Screen.InspectionList
+import me.matejkralovic.diacur.ui.navigation.Screen.ReminderDetail
+import me.matejkralovic.diacur.ui.navigation.Screen.ReminderList
+import me.matejkralovic.diacur.ui.navigation.Screen.ServiceDetail
+import me.matejkralovic.diacur.ui.navigation.Screen.ServiceList
+import me.matejkralovic.diacur.ui.navigation.Screen.VehicleDetail
+import me.matejkralovic.diacur.ui.screens.*
+import me.matejkralovic.diacur.ui.viewmodel.*
 
 @Composable
-fun DiaCurNavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController) {
+    val app = LocalContext.current.applicationContext as DiaCurApp
+
+    // ViewModels
+    val vehicleViewModel: VehicleViewModel = viewModel(
+        factory = VehicleViewModel.factory(
+            app.vehicleRepository,
+            app.fuelingRepository,
+            app.serviceRepository
+        )
+    )
+    val fuelingViewModel: FuelingViewModel = viewModel(
+        factory = FuelingViewModel.factory(
+            app.fuelingRepository,
+            app.vehicleRepository
+        )
+    )
+    val serviceViewModel: ServiceViewModel = viewModel(
+        factory = ServiceViewModel.factory(app.serviceRepository)
+    )
+    val inspectionViewModel: InspectionViewModel = viewModel(
+        factory = InspectionViewModel.factory(app.inspectionRepository)
+    )
+    val reminderViewModel: ReminderViewModel = viewModel(
+        factory = ReminderViewModel.factory(app.reminderRepository)
+    )
+
     NavHost(
         navController = navController,
         startDestination = Screen.VehicleList.route
@@ -16,28 +56,43 @@ fun DiaCurNavGraph(navController: NavHostController) {
 
         // ── Vehicle ──────────────────────────────────────────
         composable(Screen.VehicleList.route) {
-            // VehicleListScreen(navController)
+            VehicleListScreen(
+                navController = navController,
+                viewModel = vehicleViewModel
+            )
         }
 
         composable(Screen.VehicleAdd.route) {
-            // VehicleAddScreen(navController)
+            VehicleAddScreen(
+                navController = navController,
+                viewModel = vehicleViewModel
+            )
         }
 
         composable(
-            route = Screen.VehicleDetail.ROUTE,
+            route = VehicleDetail.ROUTE,
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // VehicleDetailScreen(navController, vehicleId)
+            VehicleDetailScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                vehicleViewModel = vehicleViewModel,
+                fuelingViewModel = fuelingViewModel
+            )
         }
 
         // ── Fueling ──────────────────────────────────────────
         composable(
-            route = Screen.FuelingList.ROUTE,
+            route = FuelingList.ROUTE,
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // FuelingListScreen(navController, vehicleId)
+            FuelingListScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = fuelingViewModel
+            )
         }
 
         composable(
@@ -45,24 +100,36 @@ fun DiaCurNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // FuelingAddScreen(navController, vehicleId)
+            FuelingAddScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = fuelingViewModel
+            )
         }
 
         composable(
-            route = Screen.FuelingDetail.ROUTE,
+            route = FuelingDetail.ROUTE,
             arguments = listOf(navArgument("fuelingId") { type = NavType.LongType })
         ) { backStackEntry ->
             val fuelingId = backStackEntry.arguments?.getLong("fuelingId") ?: return@composable
-            // FuelingDetailScreen(navController, fuelingId)
+            FuelingDetailScreen(
+                navController = navController,
+                fuelingId = fuelingId,
+                viewModel = fuelingViewModel
+            )
         }
 
         // ── Service ──────────────────────────────────────────
         composable(
-            route = Screen.ServiceList.ROUTE,
+            route = ServiceList.ROUTE,
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // ServiceListScreen(navController, vehicleId)
+            ServiceListScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = serviceViewModel
+            )
         }
 
         composable(
@@ -70,24 +137,36 @@ fun DiaCurNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // ServiceAddScreen(navController, vehicleId)
+            ServiceAddScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = serviceViewModel
+            )
         }
 
         composable(
-            route = Screen.ServiceDetail.ROUTE,
+            route = ServiceDetail.ROUTE,
             arguments = listOf(navArgument("serviceId") { type = NavType.LongType })
         ) { backStackEntry ->
             val serviceId = backStackEntry.arguments?.getLong("serviceId") ?: return@composable
-            // ServiceDetailScreen(navController, serviceId)
+            ServiceDetailScreen(
+                navController = navController,
+                serviceId = serviceId,
+                viewModel = serviceViewModel
+            )
         }
 
         // ── Inspection ────────────────────────────────────────
         composable(
-            route = Screen.InspectionList.ROUTE,
+            route = InspectionList.ROUTE,
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // InspectionListScreen(navController, vehicleId)
+            InspectionListScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = inspectionViewModel
+            )
         }
 
         composable(
@@ -95,24 +174,36 @@ fun DiaCurNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // InspectionAddScreen(navController, vehicleId)
+            InspectionAddScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = inspectionViewModel
+            )
         }
 
         composable(
-            route = Screen.InspectionDetail.ROUTE,
+            route = InspectionDetail.ROUTE,
             arguments = listOf(navArgument("inspectionId") { type = NavType.LongType })
         ) { backStackEntry ->
             val inspectionId = backStackEntry.arguments?.getLong("inspectionId") ?: return@composable
-            // InspectionDetailScreen(navController, inspectionId)
+            InspectionDetailScreen(
+                navController = navController,
+                inspectionId = inspectionId,
+                viewModel = inspectionViewModel
+            )
         }
 
         // ── Reminder ─────────────────────────────────────────
         composable(
-            route = Screen.ReminderList.ROUTE,
+            route = ReminderList.ROUTE,
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // ReminderListScreen(navController, vehicleId)
+            ReminderListScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = reminderViewModel
+            )
         }
 
         composable(
@@ -120,15 +211,23 @@ fun DiaCurNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("vehicleId") { type = NavType.LongType })
         ) { backStackEntry ->
             val vehicleId = backStackEntry.arguments?.getLong("vehicleId") ?: return@composable
-            // ReminderAddScreen(navController, vehicleId)
+            ReminderAddScreen(
+                navController = navController,
+                vehicleId = vehicleId,
+                viewModel = reminderViewModel
+            )
         }
 
         composable(
-            route = Screen.ReminderDetail.ROUTE,
+            route = ReminderDetail.ROUTE,
             arguments = listOf(navArgument("reminderId") { type = NavType.LongType })
         ) { backStackEntry ->
             val reminderId = backStackEntry.arguments?.getLong("reminderId") ?: return@composable
-            // ReminderDetailScreen(navController, reminderId)
+            ReminderDetailScreen(
+                navController = navController,
+                reminderId = reminderId,
+                viewModel = reminderViewModel
+            )
         }
     }
 }

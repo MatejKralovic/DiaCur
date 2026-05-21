@@ -12,6 +12,8 @@ composeBom = "2025.05.00"
 navigationCompose = "2.9.0"
 lifecycleViewmodelCompose = "2.9.0"
 room = "2.7.1"
+playServicesLocation = "21.3.0"
+workManager = "2.10.1"
 
 [libraries]
 # Core
@@ -45,6 +47,12 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+
+# Play Services
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+
+# WorkManager
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

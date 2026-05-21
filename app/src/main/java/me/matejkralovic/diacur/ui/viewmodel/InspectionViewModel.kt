@@ -51,6 +51,8 @@ class InspectionViewModel(
         viewModelScope.launch { inspectionRepository.delete(inspection) }
     }
 
+    suspend fun getById(id: Long): Inspection? = inspectionRepository.getById(id)
+
     companion object {
         fun factory(inspectionRepository: InspectionRepository) =
             object : ViewModelProvider.Factory {

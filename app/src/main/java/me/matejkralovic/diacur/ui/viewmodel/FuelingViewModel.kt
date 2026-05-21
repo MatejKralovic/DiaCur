@@ -59,6 +59,8 @@ class FuelingViewModel(
         viewModelScope.launch { fuelingRepository.delete(fueling) }
     }
 
+    suspend fun getById(id: Long): Fueling? = fuelingRepository.getById(id)
+
     suspend fun getAvgConsumption(vehicleId: Long): Double? {
         val fuelings = fuelingRepository.getForVehicle(vehicleId)
             .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())

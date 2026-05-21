@@ -47,6 +47,8 @@ class ReminderViewModel(
         viewModelScope.launch { reminderRepository.delete(reminder) }
     }
 
+    suspend fun getById(id: Long): Reminder? = reminderRepository.getById(id)
+
     fun markAsCompleted(id: Long) {
         viewModelScope.launch { reminderRepository.markAsCompleted(id) }
     }

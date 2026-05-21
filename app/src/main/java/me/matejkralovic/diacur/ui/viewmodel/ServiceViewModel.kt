@@ -47,6 +47,8 @@ class ServiceViewModel(
         viewModelScope.launch { serviceRepository.delete(service) }
     }
 
+    suspend fun getById(id: Long): Service? = serviceRepository.getById(id)
+
     companion object {
         fun factory(serviceRepository: ServiceRepository) =
             object : ViewModelProvider.Factory {
