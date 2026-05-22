@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.matejkralovic.diacur.data.entity.Fueling
@@ -63,8 +64,7 @@ class FuelingViewModel(
 
     suspend fun getAvgConsumption(vehicleId: Long): Double? {
         val fuelings = fuelingRepository.getForVehicle(vehicleId)
-            .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
-            .value
+            .first()
             .sortedBy { it.date }
 
         if (fuelings.size < 2) return null
@@ -93,4 +93,7 @@ sealed class AddFuelingResult {
 }
 
 // Vytvorene pomocou AI
+// Chyby:
+// Nepocitala sa priemerna spotreba - fuelings list bol vzdy po nacitani prazdny
+// -- Vyriesene zmenou nacitania
 

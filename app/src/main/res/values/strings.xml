@@ -38,8 +38,10 @@
     <string name="avg_consumption">Priemerná spotreba</string>
     <string name="total_cost">Celkové náklady</string>
     <string name="not_available">--</string>
-    <string name="delete_confirm_title">Zmazať vozidlo?</string>
-    <string name="delete_confirm_message">Zmazaním vozidla sa odstránia aj všetky jeho záznamy. Táto akcia je nezvratná.</string>
+    <string name="vehicle_delete_confirm_title">Zmazať vozidlo?</string>
+    <string name="vehicle_delete_confirm_message">Zmazaním vozidla sa odstránia aj všetky jeho záznamy. Táto akcia je nezvratná.</string>
+    <string name="delete_confirm_title">Zmazať záznam?</string>
+    <string name="delete_confirm_message">Záznam bude natrvalo odstránený.</string>
     <string name="add_fueling">Pridať tankovanie</string>
     <string name="no_fuelings">Žiadne tankovania</string>
     <string name="no_fuelings_hint">Pridaj tankovanie stlačením tlačidla +</string>

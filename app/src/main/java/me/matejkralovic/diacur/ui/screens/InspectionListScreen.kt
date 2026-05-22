@@ -30,7 +30,10 @@ fun InspectionListScreen(
     vehicleId: Long,
     viewModel: InspectionViewModel
 ) {
-    val inspections by viewModel.getInspectionsForVehicle(vehicleId).collectAsState()
+    val inspectionsFlow = remember(vehicleId) {
+        viewModel.getInspectionsForVehicle(vehicleId)
+    }
+    val inspections by inspectionsFlow.collectAsState()
 
     // Separate STK and EK
     val stk = inspections.filter { it.type == InspectionType.STK }.maxByOrNull { it.expiryDate }
@@ -183,3 +186,7 @@ private fun InspectionListItem(
     )
 }
 // Vytvorene pomocou AI
+// Chyby:
+// Preblikavanie obrazovky, kvoli castemu recompose
+// -- Pouzitie remember(vehicleId), aby sa recompose dial len pri vstupe na obrazovku, kedze sa nevytvara novy objekt
+// -- Uprava bola preventivne vykonana aj v ostatnych "*ListScreen.kt" suboroch

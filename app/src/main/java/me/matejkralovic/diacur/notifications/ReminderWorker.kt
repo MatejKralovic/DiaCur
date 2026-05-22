@@ -54,9 +54,16 @@ class ReminderWorker(
                     context.getString(inspection.type.labelRes)
                 )
             )
+
+            val newDate = inspection.notificationDate?.plus(86400000);
+            app.inspectionRepository.update(
+                inspection.copy(notificationDate = newDate)
+            )
         }
 
         return Result.success()
     }
 }
 // Vytvorene pomocou AI
+// Chyby:
+// Notifikacia o kontrole by pri povodnom spracovani prichadzala opakovane kazdych 15 minut

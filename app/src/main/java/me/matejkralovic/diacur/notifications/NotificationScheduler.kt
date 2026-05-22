@@ -10,8 +10,8 @@ object NotificationScheduler {
 
     fun schedule(context: Context) {
         val request = PeriodicWorkRequestBuilder<ReminderWorker>(
-            repeatInterval = 1,
-            repeatIntervalTimeUnit = TimeUnit.HOURS
+            repeatInterval = 15,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES
         )
             .setConstraints(
                 Constraints.Builder()

@@ -31,7 +31,8 @@ fun FuelingListScreen(
     vehicleId: Long,
     viewModel: FuelingViewModel
 ) {
-    val fuelings by viewModel.getFuelingsForVehicle(vehicleId).collectAsState()
+    val fuelingsFlow = remember(vehicleId) { viewModel.getFuelingsForVehicle(vehicleId) }
+    val fuelings by fuelingsFlow.collectAsState()
 
     Scaffold(
         topBar = {

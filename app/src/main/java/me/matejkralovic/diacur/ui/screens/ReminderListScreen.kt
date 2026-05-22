@@ -30,7 +30,8 @@ fun ReminderListScreen(
     vehicleId: Long,
     viewModel: ReminderViewModel
 ) {
-    val reminders by viewModel.getRemindersForVehicle(vehicleId).collectAsState()
+    val remindersFlow = remember(vehicleId) { viewModel.getRemindersForVehicle(vehicleId) }
+    val reminders by remindersFlow.collectAsState()
 
     Scaffold(
         topBar = {

@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import me.matejkralovic.diacur.R
 import me.matejkralovic.diacur.data.entity.Vehicle
 import me.matejkralovic.diacur.data.entity.VehicleType
+import me.matejkralovic.diacur.ui.navigation.Screen
 import me.matejkralovic.diacur.ui.viewmodel.FuelingViewModel
 import me.matejkralovic.diacur.ui.viewmodel.VehicleViewModel
 
@@ -31,12 +32,15 @@ fun VehicleDetailScreen(
     vehicleViewModel: VehicleViewModel,
     fuelingViewModel: FuelingViewModel
 ) {
+    var isDeleting by remember { mutableStateOf(false) }
+
     val vehicles by vehicleViewModel.vehicles.collectAsState()
     val vehicle = vehicles.find { it.id == vehicleId }
 
     if (vehicle == null) {
-        // Vehicle not found – go back
-        LaunchedEffect(Unit) { navController.popBackStack() }
+        if (!isDeleting) {
+            LaunchedEffect(Unit) { navController.popBackStack() }
+        }
         return
     }
 
@@ -54,10 +58,15 @@ fun VehicleDetailScreen(
     if (showDeleteDialog) {
         DeleteConfirmDialog(
             onConfirm = {
+                isDeleting = true
                 vehicleViewModel.deleteVehicle(vehicle)
-                navController.popBackStack()
+                navController.navigate(Screen.VehicleList.route) {
+                    popUpTo(Screen.VehicleList.route) { inclusive = true }
+                }
             },
-            onDismiss = { showDeleteDialog = false }
+            onDismiss = { showDeleteDialog = false },
+            title = stringResource(R.string.vehicle_delete_confirm_title),
+            message = stringResource(R.string.vehicle_delete_confirm_message)
         )
     }
 
@@ -350,12 +359,14 @@ private fun VehicleEditForm(
 @Composable
 fun DeleteConfirmDialog(
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    title: String = stringResource(R.string.delete_confirm_title),
+    message: String = stringResource(R.string.delete_confirm_message)
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.delete_confirm_title)) },
-        text = { Text(stringResource(R.string.delete_confirm_message)) },
+        title = { Text(title) },
+        text = { Text(message) },
         confirmButton = {
             TextButton(onClick = onConfirm) {
                 Text(
@@ -372,3 +383,10 @@ fun DeleteConfirmDialog(
     )
 }
 // Vytvorene pomocou AI
+// Chyby:
+// Po zmazani vozidla zostala obrazovka biela
+// -- Pridanie isDeleting
+//
+// Pri mazani zaznamov patriacich vozidlu sa vyuziva DeleteConfirmDialog z tohto suboru,
+// takze title a message boli zle.
+// -- Pridanie title a message ako parametre funkcie

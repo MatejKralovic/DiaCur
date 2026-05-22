@@ -30,7 +30,8 @@ fun ServiceListScreen(
     vehicleId: Long,
     viewModel: ServiceViewModel
 ) {
-    val services by viewModel.getServicesForVehicle(vehicleId).collectAsState()
+    val servicesFlow = remember(vehicleId) { viewModel.getServicesForVehicle(vehicleId) }
+    val services by servicesFlow.collectAsState()
 
     Scaffold(
         topBar = {
