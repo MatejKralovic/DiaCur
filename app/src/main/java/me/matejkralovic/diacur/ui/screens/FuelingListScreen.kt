@@ -56,7 +56,7 @@ fun FuelingListScreen(
             }
         },
         bottomBar = {
-            DiaCurBottomBar(navController = navController, currentVehicleId = vehicleId)
+            BottomBar(navController = navController, currentVehicleId = vehicleId)
         }
     ) { innerPadding ->
         if (fuelings.isEmpty()) {

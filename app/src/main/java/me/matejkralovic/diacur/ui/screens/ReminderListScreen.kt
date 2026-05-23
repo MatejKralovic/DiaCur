@@ -55,7 +55,7 @@ fun ReminderListScreen(
             }
         },
         bottomBar = {
-            DiaCurBottomBar(navController = navController, currentVehicleId = vehicleId)
+            BottomBar(navController = navController, currentVehicleId = vehicleId)
         }
     ) { innerPadding ->
         if (reminders.isEmpty()) {

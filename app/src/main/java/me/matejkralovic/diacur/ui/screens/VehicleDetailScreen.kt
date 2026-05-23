@@ -16,7 +16,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.launch
 import me.matejkralovic.diacur.R
 import me.matejkralovic.diacur.data.entity.Vehicle
 import me.matejkralovic.diacur.data.entity.VehicleType
@@ -100,7 +99,7 @@ fun VehicleDetailScreen(
             )
         },
         bottomBar = {
-            DiaCurBottomBar(navController = navController, currentVehicleId = vehicleId)
+            BottomBar(navController = navController, currentVehicleId = vehicleId)
         }
     ) { innerPadding ->
         if (editMode) {
@@ -355,33 +354,6 @@ private fun VehicleEditForm(
     }
 }
 
-// ── Delete confirmation dialog ────────────────────────────────
-@Composable
-fun DeleteConfirmDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
-    title: String = stringResource(R.string.delete_confirm_title),
-    message: String = stringResource(R.string.delete_confirm_message)
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(title) },
-        text = { Text(message) },
-        confirmButton = {
-            TextButton(onClick = onConfirm) {
-                Text(
-                    stringResource(R.string.delete),
-                    color = MaterialTheme.colorScheme.error
-                )
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.cancel))
-            }
-        }
-    )
-}
 // Vytvorene pomocou AI
 // Chyby:
 // Po zmazani vozidla zostala obrazovka biela

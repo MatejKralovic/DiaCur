@@ -32,8 +32,15 @@ class FuelingViewModel(
         longitude: Double?
     ): AddFuelingResult {
         val last = fuelingRepository.getLast(vehicleId)
-        if (last != null && odometer < last.odometer) {
-            return AddFuelingResult.InvalidOdometer(last.odometer)
+        if (last != null) {
+            if (odometer < last.odometer) {
+                return AddFuelingResult.InvalidOdometer(last.odometer)
+            }
+        } else {
+            val vehicle = vehicleRepository.getById(vehicleId)
+            if (vehicle != null && odometer < vehicle.odometer) {
+                return AddFuelingResult.InvalidOdometer(vehicle.odometer)
+            }
         }
 
         fuelingRepository.insert(
@@ -96,4 +103,6 @@ sealed class AddFuelingResult {
 // Chyby:
 // Nepocitala sa priemerna spotreba - fuelings list bol vzdy po nacitani prazdny
 // -- Vyriesene zmenou nacitania
+// Pri pridavani prveho tankovania sa nekontroloval stav tachometra
+// -- Vyriesene upravou kontroly
 

@@ -38,7 +38,7 @@ fun VehicleListScreen(
             }
         },
         bottomBar = {
-            DiaCurBottomBar(navController = navController, currentVehicleId = null)
+            BottomBar(navController = navController, currentVehicleId = null)
         }
     ) { innerPadding ->
         if (vehicles.isEmpty()) {
@@ -114,70 +114,6 @@ private fun EmptyVehicleList(modifier: Modifier = Modifier) {
             text = stringResource(R.string.no_vehicles_hint),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.outlineVariant
-        )
-    }
-}
-
-// ── Bottom navigation bar ─────────────────────────────────────
-@Composable
-fun DiaCurBottomBar(
-    navController: NavController,
-    currentVehicleId: Long?
-) {
-    NavigationBar {
-        NavigationBarItem(
-            selected = false,
-            onClick = {
-                navController.navigate(Screen.VehicleList.route) {
-                    popUpTo(Screen.VehicleList.route) { inclusive = true }
-                }
-            },
-            icon = { Icon(Icons.Default.DirectionsCar, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_vehicles)) }
-        )
-        NavigationBarItem(
-            selected = false,
-            enabled = currentVehicleId != null,
-            onClick = {
-                currentVehicleId?.let {
-                    navController.navigate(Screen.FuelingList.createRoute(it))
-                }
-            },
-            icon = { Icon(Icons.Default.LocalGasStation, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_fueling)) }
-        )
-        NavigationBarItem(
-            selected = false,
-            enabled = currentVehicleId != null,
-            onClick = {
-                currentVehicleId?.let {
-                    navController.navigate(Screen.ServiceList.createRoute(it))
-                }
-            },
-            icon = { Icon(Icons.Default.Build, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_service)) }
-        )
-        NavigationBarItem(
-            selected = false,
-            enabled = currentVehicleId != null,
-            onClick = {
-                currentVehicleId?.let {
-                    navController.navigate(Screen.ReminderList.createRoute(it))
-                }
-            },
-            icon = { Icon(Icons.Default.Notifications, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_reminders)) }
-        )
-        NavigationBarItem(
-            selected = false,
-            enabled = currentVehicleId != null,
-            onClick = {
-                currentVehicleId?.let {
-                    navController.navigate(Screen.InspectionList.createRoute(it))
-                }
-            },
-            icon = { Icon(Icons.Default.VerifiedUser, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_inspection)) }
         )
     }
 }
