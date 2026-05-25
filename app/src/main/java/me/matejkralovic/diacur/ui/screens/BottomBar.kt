@@ -12,6 +12,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import me.matejkralovic.diacur.R
 import me.matejkralovic.diacur.ui.navigation.Screen
@@ -31,7 +32,7 @@ fun BottomBar(
                 }
             },
             icon = { Icon(Icons.Default.DirectionsCar, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_vehicles)) }
+            label = { Text(stringResource(R.string.nav_vehicles), maxLines = 1, overflow = TextOverflow.Ellipsis) }
         )
         NavigationBarItem(
             selected = false,
@@ -42,7 +43,7 @@ fun BottomBar(
                 }
             },
             icon = { Icon(Icons.Default.LocalGasStation, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_fueling)) }
+            label = { Text(stringResource(R.string.nav_fueling), maxLines = 1, overflow = TextOverflow.Ellipsis) }
         )
         NavigationBarItem(
             selected = false,
@@ -53,7 +54,7 @@ fun BottomBar(
                 }
             },
             icon = { Icon(Icons.Default.Build, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_service)) }
+            label = { Text(stringResource(R.string.nav_service), maxLines = 1, overflow = TextOverflow.Ellipsis) }
         )
         NavigationBarItem(
             selected = false,
@@ -64,7 +65,7 @@ fun BottomBar(
                 }
             },
             icon = { Icon(Icons.Default.Notifications, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_reminders)) }
+            label = { Text(stringResource(R.string.nav_reminders), maxLines = 1, overflow = TextOverflow.Ellipsis) }
         )
         NavigationBarItem(
             selected = false,
@@ -75,7 +76,7 @@ fun BottomBar(
                 }
             },
             icon = { Icon(Icons.Default.VerifiedUser, contentDescription = null) },
-            label = { Text(stringResource(R.string.nav_inspection)) }
+            label = { Text(stringResource(R.string.nav_inspection), maxLines = 1, overflow = TextOverflow.Ellipsis) }
         )
     }
 }
