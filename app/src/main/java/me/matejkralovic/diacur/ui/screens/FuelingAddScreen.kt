@@ -13,6 +13,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,12 +42,12 @@ fun FuelingAddScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    var totalPrice by remember { mutableStateOf("") }
-    var pricePerLitre by remember { mutableStateOf("") }
-    var volume by remember { mutableStateOf("") }
-    var odometer by remember { mutableStateOf("") }
-    var note by remember { mutableStateOf("") }
-    var recordLocation by remember { mutableStateOf(false) }
+    var totalPrice by rememberSaveable { mutableStateOf("") }
+    var pricePerLitre by rememberSaveable { mutableStateOf("") }
+    var volume by rememberSaveable { mutableStateOf("") }
+    var odometer by rememberSaveable { mutableStateOf("") }
+    var note by rememberSaveable { mutableStateOf("") }
+    var recordLocation by rememberSaveable { mutableStateOf(false) }
     var latitude by remember { mutableStateOf<Double?>(null) }
     var longitude by remember { mutableStateOf<Double?>(null) }
     var locationLoading by remember { mutableStateOf(false) }

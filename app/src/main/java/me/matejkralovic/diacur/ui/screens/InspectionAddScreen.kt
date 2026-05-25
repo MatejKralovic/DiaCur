@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,10 +28,10 @@ fun InspectionAddScreen(
     vehicleId: Long,
     viewModel: InspectionViewModel
 ) {
-    var stkChecked by remember { mutableStateOf(false) }
-    var ekChecked by remember { mutableStateOf(false) }
-    var cost by remember { mutableStateOf("") }
-    var notifyBeforeExpiry by remember { mutableStateOf(true) }
+    var stkChecked by rememberSaveable { mutableStateOf(false) }
+    var ekChecked by rememberSaveable { mutableStateOf(false) }
+    var cost by rememberSaveable { mutableStateOf("") }
+    var notifyBeforeExpiry by rememberSaveable { mutableStateOf(true) }
 
     var showStartDatePicker by remember { mutableStateOf(false) }
     var showExpiryDatePicker by remember { mutableStateOf(false) }

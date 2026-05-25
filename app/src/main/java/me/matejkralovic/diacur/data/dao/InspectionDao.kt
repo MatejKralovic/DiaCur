@@ -34,6 +34,9 @@ interface InspectionDao {
 
     @Delete
     suspend fun delete(inspection: Inspection)
+
+    @Query("SELECT SUM(cost) FROM inspections WHERE vehicleId = :vehicleId")
+    suspend fun getTotalCost(vehicleId: Long): Double?
 }
 
 // Vytvorene pomocou AI

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,16 +28,16 @@ fun ReminderAddScreen(
     vehicleId: Long,
     viewModel: ReminderViewModel
 ) {
-    var description by remember { mutableStateOf("") }
-    var selectedTasks by remember { mutableStateOf(emptySet<ServiceTask>()) }
+    var description by rememberSaveable { mutableStateOf("") }
+    var selectedTasks by rememberSaveable { mutableStateOf(emptySet<ServiceTask>()) }
     var showTaskPicker by remember { mutableStateOf(false) }
 
     // Km trigger
-    var kmTriggerEnabled by remember { mutableStateOf(false) }
-    var kmTrigger by remember { mutableStateOf("") }
+    var kmTriggerEnabled by rememberSaveable { mutableStateOf(false) }
+    var kmTrigger by rememberSaveable { mutableStateOf("") }
 
     // Date trigger
-    var dateTriggerEnabled by remember { mutableStateOf(false) }
+    var dateTriggerEnabled by rememberSaveable { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = System.currentTimeMillis()

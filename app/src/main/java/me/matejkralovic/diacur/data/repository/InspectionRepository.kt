@@ -18,6 +18,8 @@ class InspectionRepository(private val dao: InspectionDao) {
     suspend fun update(inspection: Inspection) = dao.update(inspection)
 
     suspend fun delete(inspection: Inspection) = dao.delete(inspection)
+
+    suspend fun getTotalCost(vehicleId: Long): Double = dao.getTotalCost(vehicleId) ?: 0.0
 }
 
 // Vytvorene pomocou AI

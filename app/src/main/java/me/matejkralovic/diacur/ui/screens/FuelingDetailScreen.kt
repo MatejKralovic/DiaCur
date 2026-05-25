@@ -11,6 +11,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -43,8 +44,8 @@ fun FuelingDetailScreen(
         loaded = true
     }
 
-    var editMode by remember { mutableStateOf(false) }
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    var editMode by rememberSaveable { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
     // Until fueling is loaded navigate back
     if (loaded && fueling == null) {
@@ -207,11 +208,11 @@ private fun FuelingEditForm(
     onSave: (Fueling) -> Unit,
     onCancel: () -> Unit
 ) {
-    var totalPrice by remember { mutableStateOf(String.format("%.2f", fueling.volume * fueling.pricePerLitre)) }
-    var pricePerLitre by remember { mutableStateOf(String.format("%.3f", fueling.pricePerLitre)) }
-    var volume by remember { mutableStateOf(String.format("%.2f", fueling.volume)) }
-    var odometer by remember { mutableStateOf(fueling.odometer.toString()) }
-    var note by remember { mutableStateOf(fueling.note) }
+    var totalPrice by rememberSaveable { mutableStateOf(String.format("%.2f", fueling.volume * fueling.pricePerLitre)) }
+    var pricePerLitre by rememberSaveable { mutableStateOf(String.format("%.3f", fueling.pricePerLitre)) }
+    var volume by rememberSaveable { mutableStateOf(String.format("%.2f", fueling.volume)) }
+    var odometer by rememberSaveable { mutableStateOf(fueling.odometer.toString()) }
+    var note by rememberSaveable { mutableStateOf(fueling.note) }
 
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(

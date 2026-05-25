@@ -12,11 +12,14 @@ import me.matejkralovic.diacur.data.entity.VehicleType
 import me.matejkralovic.diacur.data.repository.FuelingRepository
 import me.matejkralovic.diacur.data.repository.ServiceRepository
 import me.matejkralovic.diacur.data.repository.VehicleRepository
+import me.matejkralovic.diacur.data.repository.InspectionRepository
 
 class VehicleViewModel(
     private val vehicleRepository: VehicleRepository,
     private val fuelingRepository: FuelingRepository,
-    private val serviceRepository: ServiceRepository
+    private val serviceRepository: ServiceRepository,
+    private val inspectionRepository: InspectionRepository
+
 ) : ViewModel() {
 
     val vehicles: StateFlow<List<Vehicle>> = vehicleRepository.all
@@ -53,18 +56,20 @@ class VehicleViewModel(
     suspend fun getTotalCost(vehicleId: Long): Double {
         val fuelingCost = fuelingRepository.getTotalCost(vehicleId)
         val serviceCost = serviceRepository.getTotalCost(vehicleId)
-        return fuelingCost + serviceCost
+        val inspectionCost = inspectionRepository.getTotalCost(vehicleId)
+        return fuelingCost + serviceCost + inspectionCost
     }
 
     companion object {
         fun factory(
             vehicleRepository: VehicleRepository,
             fuelingRepository: FuelingRepository,
-            serviceRepository: ServiceRepository
+            serviceRepository: ServiceRepository,
+            inspectionRepository: InspectionRepository
         ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                VehicleViewModel(vehicleRepository, fuelingRepository, serviceRepository) as T
+                VehicleViewModel(vehicleRepository, fuelingRepository, serviceRepository, inspectionRepository) as T
         }
     }
 }

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,9 +26,9 @@ fun ServiceAddScreen(
     vehicleId: Long,
     viewModel: ServiceViewModel
 ) {
-    var cost by remember { mutableStateOf("") }
-    var note by remember { mutableStateOf("") }
-    var selectedTasks by remember { mutableStateOf(emptySet<ServiceTask>()) }
+    var cost by rememberSaveable { mutableStateOf("") }
+    var note by rememberSaveable { mutableStateOf("") }
+    var selectedTasks by rememberSaveable { mutableStateOf(emptySet<ServiceTask>()) }
     var showTaskPicker by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
 

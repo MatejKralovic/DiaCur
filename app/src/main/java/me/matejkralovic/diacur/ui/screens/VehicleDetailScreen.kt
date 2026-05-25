@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -45,9 +46,8 @@ fun VehicleDetailScreen(
 
     var totalCost by remember { mutableStateOf(0.0) }
     var avgConsumption by remember { mutableStateOf<Double?>(null) }
-    var showDeleteDialog by remember { mutableStateOf(false) }
-    var editMode by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
+    var editMode by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(vehicleId) {
         totalCost = vehicleViewModel.getTotalCost(vehicleId)
@@ -210,11 +210,11 @@ private fun VehicleEditForm(
     onSave: (Vehicle) -> Unit,
     onCancel: () -> Unit
 ) {
-    var name by remember { mutableStateOf(vehicle.name) }
-    var brand by remember { mutableStateOf(vehicle.brand) }
-    var model by remember { mutableStateOf(vehicle.model) }
-    var odometer by remember { mutableStateOf(vehicle.odometer.toString()) }
-    var selectedType by remember { mutableStateOf(vehicle.type) }
+    var name by rememberSaveable { mutableStateOf(vehicle.name) }
+    var brand by rememberSaveable { mutableStateOf(vehicle.brand) }
+    var model by rememberSaveable { mutableStateOf(vehicle.model) }
+    var odometer by rememberSaveable { mutableStateOf(vehicle.odometer.toString()) }
+    var selectedType by rememberSaveable { mutableStateOf(vehicle.type) }
     var typeDropdownExpanded by remember { mutableStateOf(false) }
 
     var nameError by remember { mutableStateOf(false) }

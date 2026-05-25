@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,11 +24,11 @@ fun VehicleAddScreen(
     navController: NavController,
     viewModel: VehicleViewModel
 ) {
-    var name by remember { mutableStateOf("") }
-    var brand by remember { mutableStateOf("") }
-    var model by remember { mutableStateOf("") }
-    var odometer by remember { mutableStateOf("") }
-    var selectedType by remember { mutableStateOf(VehicleType.CAR) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var brand by rememberSaveable { mutableStateOf("") }
+    var model by rememberSaveable { mutableStateOf("") }
+    var odometer by rememberSaveable { mutableStateOf("") }
+    var selectedType by rememberSaveable { mutableStateOf(VehicleType.CAR) }
     var typeDropdownExpanded by remember { mutableStateOf(false) }
 
     // Field error states

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,8 +34,8 @@ fun InspectionDetailScreen(
 ) {
     var inspection by remember { mutableStateOf<Inspection?>(null) }
     var loaded by remember { mutableStateOf(false) }
-    var editMode by remember { mutableStateOf(false) }
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    var editMode by rememberSaveable { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(inspectionId) {
         inspection = viewModel.getById(inspectionId)
@@ -206,8 +207,8 @@ private fun InspectionEditForm(
     onSave: (Inspection) -> Unit,
     onCancel: () -> Unit
 ) {
-    var cost by remember { mutableStateOf(String.format("%.2f", inspection.cost)) }
-    var notifyBeforeExpiry by remember { mutableStateOf(inspection.notifyBeforeExpiry) }
+    var cost by rememberSaveable { mutableStateOf(String.format("%.2f", inspection.cost)) }
+    var notifyBeforeExpiry by rememberSaveable { mutableStateOf(inspection.notifyBeforeExpiry) }
 
     var showStartDatePicker by remember { mutableStateOf(false) }
     var showExpiryDatePicker by remember { mutableStateOf(false) }

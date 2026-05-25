@@ -32,7 +32,8 @@ fun NavGraph(navController: NavHostController) {
         factory = VehicleViewModel.factory(
             app.vehicleRepository,
             app.fuelingRepository,
-            app.serviceRepository
+            app.serviceRepository,
+            app.inspectionRepository
         )
     )
     val fuelingViewModel: FuelingViewModel = viewModel(

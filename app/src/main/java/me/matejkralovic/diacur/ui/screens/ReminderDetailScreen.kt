@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,8 +35,8 @@ fun ReminderDetailScreen(
 ) {
     var reminder by remember { mutableStateOf<Reminder?>(null) }
     var loaded by remember { mutableStateOf(false) }
-    var editMode by remember { mutableStateOf(false) }
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    var editMode by rememberSaveable { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(reminderId) {
         reminder = viewModel.getById(reminderId)
@@ -195,14 +196,14 @@ private fun ReminderEditForm(
     onSave: (Reminder) -> Unit,
     onCancel: () -> Unit
 ) {
-    var description by remember { mutableStateOf(reminder.description) }
-    var selectedTasks by remember { mutableStateOf(ServiceTask.fromBitmask(reminder.serviceTasks)) }
+    var description by rememberSaveable { mutableStateOf(reminder.description) }
+    var selectedTasks by rememberSaveable { mutableStateOf(ServiceTask.fromBitmask(reminder.serviceTasks)) }
     var showTaskPicker by remember { mutableStateOf(false) }
 
-    var kmTriggerEnabled by remember { mutableStateOf(reminder.kmTrigger != null) }
+    var kmTriggerEnabled by rememberSaveable { mutableStateOf(reminder.kmTrigger != null) }
     var kmTrigger by remember { mutableStateOf(reminder.kmTrigger?.toString() ?: "") }
 
-    var dateTriggerEnabled by remember { mutableStateOf(reminder.dateTrigger != null) }
+    var dateTriggerEnabled by rememberSaveable { mutableStateOf(reminder.dateTrigger != null) }
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = reminder.dateTrigger ?: System.currentTimeMillis()

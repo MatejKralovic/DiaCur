@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,8 +33,8 @@ fun ServiceDetailScreen(
 ) {
     var service by remember { mutableStateOf<Service?>(null) }
     var loaded by remember { mutableStateOf(false) }
-    var editMode by remember { mutableStateOf(false) }
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    var editMode by rememberSaveable { mutableStateOf(false) }
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(serviceId) {
         service = viewModel.getById(serviceId)
@@ -186,9 +187,9 @@ private fun ServiceEditForm(
     onSave: (Service) -> Unit,
     onCancel: () -> Unit
 ) {
-    var cost by remember { mutableStateOf(String.format("%.2f", service.cost)) }
-    var note by remember { mutableStateOf(service.note) }
-    var selectedTasks by remember { mutableStateOf(ServiceTask.fromBitmask(service.tasks)) }
+    var cost by rememberSaveable { mutableStateOf(String.format("%.2f", service.cost)) }
+    var note by rememberSaveable { mutableStateOf(service.note) }
+    var selectedTasks by rememberSaveable { mutableStateOf(ServiceTask.fromBitmask(service.tasks)) }
     var showTaskPicker by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
 
