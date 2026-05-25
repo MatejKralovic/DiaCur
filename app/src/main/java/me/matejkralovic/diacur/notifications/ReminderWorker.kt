@@ -65,5 +65,4 @@ class ReminderWorker(
     }
 }
 // Vytvorene pomocou AI
-// Chyby:
-// Notifikacia o kontrole by pri povodnom spracovani prichadzala opakovane kazdych 15 minut
+

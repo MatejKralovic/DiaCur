@@ -280,38 +280,19 @@ private fun InspectionEditForm(
             suffix = { Text("€") }
         )
 
-        OutlinedTextField(
-            value = startDatePickerState.selectedDateMillis?.let { millis ->
-                val date = LocalDate.ofEpochDay(millis / 86400000)
-                "${date.dayOfMonth}. ${date.monthValue}. ${date.year}"
-            } ?: "",
-            onValueChange = {},
-            readOnly = true,
-            label = { Text(stringResource(R.string.inspection_start_date)) },
-            trailingIcon = {
-                IconButton(onClick = { showStartDatePicker = true }) {
-                    Icon(Icons.Default.CalendarMonth, contentDescription = stringResource(R.string.pick_date))
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
+        DatePickerField(
+            dateMillis = startDatePickerState.selectedDateMillis,
+            label = stringResource(R.string.date),
+            modifier = Modifier.fillMaxWidth(),
+            onPickerClick = { showStartDatePicker = true }
         )
 
-        OutlinedTextField(
-            value = expiryDatePickerState.selectedDateMillis?.let { millis ->
-                val date = LocalDate.ofEpochDay(millis / 86400000)
-                "${date.dayOfMonth}. ${date.monthValue}. ${date.year}"
-            } ?: "",
-            onValueChange = {},
-            readOnly = true,
-            label = { Text(stringResource(R.string.inspection_expiry_date)) },
-            trailingIcon = {
-                IconButton(onClick = { showExpiryDatePicker = true }) {
-                    Icon(Icons.Default.CalendarMonth, contentDescription = stringResource(R.string.pick_date))
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
+        DatePickerField(
+            dateMillis = expiryDatePickerState.selectedDateMillis,
+            label = stringResource(R.string.date),
+            modifier = Modifier.fillMaxWidth(),
+            onPickerClick = { showExpiryDatePicker = true }
         )
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -328,20 +309,11 @@ private fun InspectionEditForm(
         }
 
         if (notifyBeforeExpiry) {
-            OutlinedTextField(
-                value = notificationDatePickerState.selectedDateMillis?.let { millis ->
-                    val date = LocalDate.ofEpochDay(millis / 86400000)
-                    "${date.dayOfMonth}. ${date.monthValue}. ${date.year}"
-                } ?: "",
-                onValueChange = {},
-                readOnly = true,
-                label = { Text(stringResource(R.string.inspection_notification_date)) },
-                trailingIcon = {
-                    IconButton(onClick = { showNotificationDatePicker = true }) {
-                        Icon(Icons.Default.CalendarMonth, contentDescription = stringResource(R.string.pick_date))
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
+            DatePickerField(
+                dateMillis = notificationDatePickerState.selectedDateMillis,
+                label = stringResource(R.string.date),
+                modifier = Modifier.fillMaxWidth(),
+                onPickerClick = { showNotificationDatePicker = true }
             )
         }
 

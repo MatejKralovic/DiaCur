@@ -1,5 +1,6 @@
 package me.matejkralovic.diacur.ui.screens
 
+import ServiceTaskPickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -168,23 +169,11 @@ fun ReminderAddScreen(
             }
 
             if (dateTriggerEnabled) {
-                OutlinedTextField(
-                    value = datePickerState.selectedDateMillis?.let { millis ->
-                        val date = LocalDate.ofEpochDay(millis / 86400000)
-                        "${date.dayOfMonth}. ${date.monthValue}. ${date.year}"
-                    } ?: "",
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text(stringResource(R.string.date)) },
-                    trailingIcon = {
-                        IconButton(onClick = { showDatePicker = true }) {
-                            Icon(
-                                Icons.Default.CalendarMonth,
-                                contentDescription = stringResource(R.string.pick_date)
-                            )
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth()
+                DatePickerField(
+                    dateMillis = datePickerState.selectedDateMillis,
+                    label = stringResource(R.string.date),
+                    modifier = Modifier.fillMaxWidth(),
+                    onPickerClick = { showDatePicker = true }
                 )
             }
 

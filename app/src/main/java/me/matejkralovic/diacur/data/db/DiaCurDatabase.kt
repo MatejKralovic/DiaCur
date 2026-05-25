@@ -37,7 +37,6 @@ abstract class DiaCurDatabase : RoomDatabase() {
                     DiaCurDatabase::class.java,
                     "diacur_database"
                 )
-                    .fallbackToDestructiveMigration() // OK during development; replace with Migration before release
                     .build()
                     .also { INSTANCE = it }
             }
